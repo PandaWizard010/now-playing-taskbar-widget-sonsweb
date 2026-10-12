@@ -1,25 +1,26 @@
-; Instalador do Taskbar Widget for Spotify (per-user, sem UAC)
+; Installer for the independent Sonos fork (per-user, no UAC)
 ; Compilar: ISCC.exe setup.iss  (depois de dotnet publish)
 
-#define MyAppName "Taskbar Widget for Spotify"
-#define MyAppVersion "1.3.0"
-#define MyAppPublisher "MechanicWB"
-#define MyAppURL "https://github.com/mechanicwb2-hub/spotify-taskbar-widget"
-#define MyAppExeName "SpotifyTaskbarWidget.exe"
+#define MyAppName "Now Playing - Sonos Fork"
+#define MyAppVersion "1.3.1"
+#define MyAppPublisher "PandaWizard010"
+#define MyAppURL "https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb"
+#define MyAppExeName "SonosTaskbarWidget.exe"
 
 [Setup]
-AppId={{7C1E9F42-5B8A-4D33-9C61-2F4A8E7B5D10}
+AppId={{C146F8D2-64B3-4BCB-A467-D077FE75BC72}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
-DefaultDirName={userpf}\SpotifyTaskbarWidget
+DefaultDirName={userpf}\SonosTaskbarWidget
 DisableProgramGroupPage=yes
 DisableDirPage=yes
 PrivilegesRequired=lowest
 OutputDir=installer
-OutputBaseFilename=SpotifyTaskbarWidget-Setup
+OutputBaseFilename=SonosTaskbarWidget-Setup
+LicenseFile=LICENSE
 SetupIconFile=app.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2
@@ -37,13 +38,15 @@ Name: "autostart"; Description: "{cm:AutoStartProgram,{#MyAppName}}"
 
 [Files]
 Source: "publish\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\NOTICE.md"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{userprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 
 [Registry]
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; \
-    ValueName: "SpotifyTaskbarWidget"; ValueData: """{app}\{#MyAppExeName}"""; \
+    ValueName: "SonosTaskbarWidget"; ValueData: """{app}\{#MyAppExeName}"""; \
     Flags: uninsdeletevalue; Tasks: autostart
 
 [Run]

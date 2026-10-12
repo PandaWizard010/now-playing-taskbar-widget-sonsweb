@@ -16,7 +16,7 @@ namespace SpotifyTaskbarWidget;
 public partial class MainWindow : Window
 {
     private const string RunKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
-    private const string RunValueName = "SpotifyTaskbarWidget";
+    private const string RunValueName = "SonosTaskbarWidget";
 
     // Link de donativos; vazio = item de menu oculto
     private const string DonateUrl = "https://ko-fi.com/mechanicwb2";
@@ -202,6 +202,7 @@ public partial class MainWindow : Window
         AutoStartMenu.Header = L.AutoStart;
         OpenSpotifyMenu.Header = L.OpenSpotify;
         UpdateMenu.Header = L.CheckUpdates;
+        AboutMenu.Header = L.About;
         DonateMenu.Header = L.Donate;
         DonateMenu.Visibility = DonateUrl.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
         ExitMenu.Header = L.Exit;
@@ -1884,7 +1885,7 @@ public partial class MainWindow : Window
         UpdatePosition();
     }
 
-    private const string StartupTaskId = "SpotifyTaskbarWidgetStartup";
+    private const string StartupTaskId = "SonosTaskbarWidgetStartup";
 
     private async Task InitStartupTaskStateAsync()
     {
@@ -1943,6 +1944,9 @@ public partial class MainWindow : Window
     }
 
     private void OpenSpotify_Click(object sender, RoutedEventArgs e) => SpotifyActions.OpenSpotifyWindow();
+
+    private void About_Click(object sender, RoutedEventArgs e) =>
+        MessageBox.Show(L.AboutText, L.AppTitle, MessageBoxButton.OK, MessageBoxImage.Information);
 
     private void Donate_Click(object sender, RoutedEventArgs e)
     {

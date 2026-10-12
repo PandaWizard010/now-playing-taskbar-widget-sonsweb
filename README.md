@@ -1,127 +1,78 @@
-# Now Playing - Taskbar Widget
+# Now Playing - Sonos Fork
 
-A now-playing widget embedded right into the Windows taskbar: album art, title
-and artist of whatever's playing, with full controls — play/pause, skips and a
-seekable progress bar. It follows any player through the Windows media session
-(Spotify, YouTube in a browser, Apple Music, Windows Media Player, and more),
-and for Spotify it adds the liked state, all three shuffle modes, repeat and
-volume. Runs on Windows 10 and Windows 11.
+An independent development fork of [Now Playing - Taskbar Widget](https://github.com/mechanicwb2-hub/now-playing-taskbar-widget), originally created by **MechanicWB**. Fork maintenance and modifications: **PandaWizard010**.
 
-> Formerly "Taskbar Widget for Spotify". Independent project, **not affiliated
-> with, sponsored or endorsed by Spotify AB**. "Spotify" is a trademark of
-> Spotify AB.
+The goal is to add Sonos playback support, including playback started from the Sonos web player. **The Sonos add-on has not yet been merged into this repository.** The checked-in playback code currently targets the Spotify desktop app. The upstream Store application may contain newer features than this source snapshot.
 
-![demo](docs/demo.gif)
+This fork is not affiliated with or endorsed by MechanicWB, Sonos, or Spotify.
 
-## Install
+![Original upstream widget demo](docs/demo.gif)
 
-- **Microsoft Store (recommended — always the latest version):**
-  [**Now Playing - Taskbar Widget**](https://apps.microsoft.com/detail/9p12tljzg2cj) —
-  one-click install, automatic updates, works with Smart App Control enabled,
-  and supports both Windows 10 (2004+) and Windows 11.
-- **winget** (pending review): `winget install MechanicWB.TaskbarWidgetForSpotify`
-- UI languages: English and Portuguese (follows your Windows language).
+*This inherited demo does not demonstrate Sonos support.*
 
-> The Microsoft Store has the current release. The GitHub Releases here may lag
-> behind — if you want the newest version (universal player support, Windows 10),
-> install from the Store.
+## Pro and Microsoft Store
 
-## How it works
+This fork has **no Pro purchase or upgrade flow**. It does not activate the original app's paid Store add-on or bundle separately distributed paid components. The MIT-licensed source remains under its original license.
 
-- Track data comes from the **Windows media session API (SMTC)** — the same one
-  behind the Windows volume flyout. Any player that reports to Windows shows up
-  there (Spotify, YouTube, Apple Music, Windows Media Player…), so the widget
-  follows whatever is actually playing, with **no login or API keys**.
-- For Spotify's extra controls (liked state, Smart Shuffle, repeat, internal
-  volume) there is no clean API, so the widget reads Spotify's own accessibility
-  tree via UI Automation.
-- The taskbar no longer supports "deskbands", so the widget is a borderless
-  always-visible window docked over the empty area of the taskbar.
-- **Automatic positioning:** it aligns itself next to the clock/weather area and
-  never overlaps the app buttons or the system tray. The Windows 10 and 11
-  taskbars are completely different internally (11 is XAML, 10 is classic child
-  windows), so each has its own positioning logic. Works on any resolution/DPI,
-  adapts to left-aligned taskbars, follows auto-hide, and supports multiple
-  monitors.
-- When the taskbar gets crowded it shrinks to just the album art instead of
-  overlapping your app buttons, and hides if there is really no room.
-- Hides automatically when an app is fullscreen (games, videos).
+The original Microsoft Store listing and winget package belong to MechanicWB's app. Installing either installs the original application. Use this repository's source or its own release assets for this fork.
 
-## Usage
+## Build and run
 
-- **Position:** locked and automatic by default. To move it: right-click →
-  *Move widget*, drag, and untick to lock it in the new spot. *Reset to
-  automatic position* brings back auto alignment.
-- **Choose the player:** right-click → *Player* to follow any player
-  automatically (default), lock the widget to Spotify only, or pin the player
-  that's currently playing, so YouTube and others don't take it over when you
-  only want Spotify.
-- **Multiple monitors:** right-click → *Monitor* and tick every taskbar you
-  want a widget on — each display gets its own, with shared settings. (Needs
-  Windows' "show my taskbar on all displays" enabled for secondary monitors.)
-- **Size:** right-click → *Size* → Small / Normal / Large.
-- **Brightness:** right-click → *Brightness* — a slider from 20% to 100%, handy
-  to dim the widget on OLED or transparent taskbars. Scroll the mouse wheel
-  over it to fine-tune.
-- **Buttons:** right-click → *Buttons* to choose which controls appear —
-  play/pause, favorites (+), shuffle, previous, next, repeat, volume. Hide
-  play/pause to use it as a pure now-playing display.
-- **Long titles:** scroll continuously by default; right-click → *Scroll title
-  only once* to have them scroll once at the start of each track and then rest.
-- **Favorites (+, Spotify):** reads and clicks Spotify's own button through the
-  Spotify window's accessibility tree — shows a **green check** when the track
-  is already saved, and adds it without stealing focus. Spotify freezes this
-  info while its window is minimized (and has locked the Web API alternative),
-  so the widget shows the green check only when it can actually confirm it,
-  otherwise it stays neutral rather than guessing. See
-  [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for the full explanation.
-- **Shuffle (Spotify):** all three modes — off (gray), shuffle (green) and
-  **Smart Shuffle** (green with a star). Repeat supports off / playlist / track.
-- **Volume:** for Spotify it moves Spotify's own slider; for other players it
-  uses the Windows app volume.
-- **Progress bar:** live position at the bottom of the widget; click to seek.
-- Settings and error log live in `%APPDATA%\SpotifyTaskbarWidget\`.
+Requires Windows and the .NET 8 SDK. This source snapshot retains the original Windows 11 taskbar integration.
 
-## Pro (optional)
-
-The widget is free. An optional paid **Pro** add-on on the Microsoft Store adds
-themes, an audio visualizer, synced lyrics and global hotkeys. The whole core
-(now-playing, controls, positioning, any-player support, Windows 10 and 11)
-stays free.
-
-## Troubleshooting
-
-Something not working? See **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** — covers
-"nothing playing", antivirus flags, Smart App Control, positioning and more.
-Still stuck?
-[Open an issue](https://github.com/mechanicwb2-hub/now-playing-taskbar-widget/issues).
-
-## Support
-
-Free and open source. If you find it useful, you can support development on
-**[Ko-fi](https://ko-fi.com/mechanicwb2)** ☕
-
-## Building
-
-Requires the .NET 8 SDK:
-
-```
+```powershell
 dotnet publish SpotifyTaskbarWidget.csproj -c Release -o publish
+.\publish\SonosTaskbarWidget.exe
 ```
 
-Produces a single `SpotifyTaskbarWidget.exe` (needs the .NET 8 Desktop Runtime;
-for a standalone exe, flip `SelfContained` to `true`).
+The executable requires the .NET 8 Desktop Runtime. For a standalone build:
 
-> Note: the latest release ships on the Microsoft Store; the source on this
-> branch may be behind the Store version.
+```powershell
+dotnet publish SpotifyTaskbarWidget.csproj -c Release -o publish -p:SelfContained=true
+```
+
+Keep `LICENSE` and `NOTICE.md` alongside the executable when sharing a build; publishing copies them automatically. Installer builds also include both notices.
+
+There is no Microsoft Store listing or published winget manifest for this fork. See [packaging guidance](docs/store-listing.md) for local MSIX signing.
+
+## Current behavior
+
+- Reads Spotify's local Windows media session for title, artist, artwork, play state, and timeline.
+- Provides play/pause, previous/next, and seeking.
+- Reads Spotify desktop accessibility controls for favorites, shuffle, repeat, and volume.
+- Supports automatic taskbar positioning, manual placement, multiple monitors, sizing, brightness, and hiding during fullscreen applications.
+- UI languages: English and Portuguese.
+- Right-click → **About this fork** shows attribution and the fork's status.
+- Right-click → **Support original developer (MechanicWB) ☕** opens the original developer's Ko-fi page.
+
+Settings and error logs use `%APPDATA%\SonosTaskbarWidget\`. The fork has its own executable, startup entry, single-instance mutex, installer ID, install folder, and package identity. Its settings start independently of the original app.
+
+Updates check [this fork's releases](https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb/releases), matching only the `SonosTaskbarWidget.exe` asset. Publish a numeric tag such as `v1.3.2` with that asset to distribute an update.
+
+## Sonos status
+
+The previously prepared Sonos integration kit is separate from this repository. Sonos detection, speaker configuration, LAN communication, and playback controls must be integrated before this fork can be described as supporting Sonos. This attribution and distribution update does not add that integration.
+
+## Help
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md). Report fork problems in [this repository's issues](https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb/issues).
+
+## Credits and license
+
+Original software copyright (c) 2026 **MechanicWB**, released under the **MIT License**. The original [LICENSE](LICENSE) is preserved. Fork modifications are also provided under MIT; see [NOTICE.md](NOTICE.md).
+
+To support the original developer: [MechanicWB on Ko-fi](https://ko-fi.com/mechanicwb2).
 
 ## Structure
 
 | File | Role |
 |---|---|
-| `MainWindow.xaml(.cs)` | Widget UI, positioning, responsive layout, menu |
-| `MediaService.cs` | Windows media session (track, art, play/pause, timeline) |
-| `SpotifyUiaService.cs` | Spotify window accessibility: favorites, shuffle, repeat, volume |
-| `SpotifyVolume.cs` | CoreAudio: app volume / play state via the Windows mixer |
-| `Interop.cs` | Win32 (taskbar position, topmost, fullscreen detection, input) |
-| `WidgetSettings.cs` | Position, scale, theme and visible buttons, stored as JSON |
+| `MainWindow.xaml(.cs)` | Widget UI, positioning, menu, and fork About dialog |
+| `MediaService.cs` | Spotify Windows media session |
+| `SpotifyUiaService.cs` | Spotify accessibility controls |
+| `SpotifyVolume.cs` | Spotify app volume via Windows audio |
+| `Interop.cs` | Win32 taskbar, fullscreen detection, and input |
+| `WidgetSettings.cs` | Local fork settings |
+| `UpdateService.cs` | Updates from this fork's GitHub releases |
+
+The existing project filename and C# namespace are retained for compatibility with the separate integration kit. The output executable is `SonosTaskbarWidget.exe`.

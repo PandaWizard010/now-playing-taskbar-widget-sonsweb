@@ -7,18 +7,23 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>SpotifyTaskbarWidget</RootNamespace>
-    <AssemblyName>SpotifyTaskbarWidget</AssemblyName>
+    <AssemblyName>SonosTaskbarWidget</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>app.ico</ApplicationIcon>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <Version>1.3.0</Version>
-    <Product>Taskbar Widget for Spotify</Product>
-    <AssemblyTitle>Taskbar Widget for Spotify</AssemblyTitle>
-    <Company>MechanicWB</Company>
+    <Version>1.3.1</Version>
+    <Product>Now Playing - Sonos Fork</Product>
+    <AssemblyTitle>Now Playing - Sonos Fork</AssemblyTitle>
+    <Company>PandaWizard010</Company>
+    <Copyright>Copyright (c) 2026 MechanicWB. Fork modifications (c) 2026 PandaWizard010.</Copyright>
     <!-- Um único .exe no publish, para as atualizações substituírem só um ficheiro -->
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>false</SelfContained>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE;NOTICE.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 
 </Project>

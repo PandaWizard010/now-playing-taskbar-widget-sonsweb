@@ -11,7 +11,7 @@ internal static class L
     private static readonly bool Pt =
         CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.Equals("pt", StringComparison.OrdinalIgnoreCase);
 
-    public const string AppTitle = "Taskbar Widget for Spotify";
+    public const string AppTitle = "Now Playing - Sonos Fork";
 
     // Menu
     public static string MoveWidget => Pt ? "Mover widget" : "Move widget";
@@ -47,7 +47,11 @@ internal static class L
     public static string AutoStart => Pt ? "Iniciar com o Windows" : "Start with Windows";
     public static string OpenSpotify => Pt ? "Abrir Spotify" : "Open Spotify";
     public static string CheckUpdates => Pt ? "Procurar atualizações" : "Check for updates";
-    public static string Donate => Pt ? "Apoiar o projeto ☕" : "Support the project ☕";
+    public static string Donate => Pt ? "Apoiar o autor original (MechanicWB) ☕" : "Support original developer (MechanicWB) ☕";
+    public static string About => Pt ? "Sobre este fork" : "About this fork";
+    public static string AboutText => Pt
+        ? "Fork independente mantido por PandaWizard010.\n\nBaseado no Now Playing - Taskbar Widget de MechanicWB, sob a licença MIT.\n\nEste fork não oferece compras Pro nem ativa o suplemento pago da Microsoft Store. O suporte Sonos está em desenvolvimento.\n\nNão afiliado a MechanicWB, Sonos ou Spotify. Consulte LICENSE e NOTICE.md incluídos com a aplicação."
+        : "Independent fork maintained by PandaWizard010.\n\nBased on Now Playing - Taskbar Widget by MechanicWB, under the MIT License.\n\nThis fork offers no Pro purchases and does not activate the paid Microsoft Store add-on. Sonos support is in development.\n\nNot affiliated with MechanicWB, Sonos or Spotify. See LICENSE and NOTICE.md included with the application.";
     public static string Exit => Pt ? "Sair" : "Quit";
 
     // Tooltips / estados

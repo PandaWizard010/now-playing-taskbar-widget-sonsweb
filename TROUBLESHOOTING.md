@@ -1,5 +1,9 @@
 # Troubleshooting
 
+This document describes the Spotify behavior inherited by the independent
+Sonos fork. Sonos integration is not yet merged. For fork problems, use
+https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb/issues.
+
 ## The widget says "nothing playing" while Spotify is playing
 
 The track info (title, artist, art, play state) comes from the **Windows media
@@ -26,8 +30,10 @@ session** — the same system behind the Windows volume popup. If it's empty:
 See [issue #4](https://github.com/mechanicwb2-hub/now-playing-taskbar-widget/issues/4):
 a couple of minor engines heuristically flag unsigned single-file .NET
 installers. All major engines report clean, the source is public, and you can
-install the Microsoft-signed build from the
+install the original developer's Microsoft-signed application from the
 [Microsoft Store](https://apps.microsoft.com/detail/9p12tljzg2cj) instead.
+
+That listing installs MechanicWB's original application, not this fork.
 
 ## Smart App Control blocks the installer
 
@@ -35,12 +41,14 @@ Windows 11's Smart App Control blocks unsigned apps with no override. Install
 from the [Microsoft Store](https://apps.microsoft.com/detail/9p12tljzg2cj) —
 that build is signed and certified by Microsoft.
 
+That listing is for the original app. This fork has no Store listing.
+
 ## The widget overlaps something / sits in the wrong place
 
 - Right-click → **Reset to automatic position** (also resets the monitor choice).
 - To place it manually: right-click → **Move widget**, drag, untick to lock.
 - Found a layout the auto-positioning handles badly? Please
-  [open an issue](https://github.com/mechanicwb2-hub/now-playing-taskbar-widget/issues)
+  [open an issue](https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb/issues)
   with a screenshot of your full taskbar — that's how the tricky setups get fixed.
 
 ## Favorites / Smart Shuffle / repeat state not showing

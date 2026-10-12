@@ -1,25 +1,15 @@
-# Privacy Policy — Taskbar Widget for Spotify
+# Privacy — Now Playing - Sonos Fork
 
-**Last updated: July 9, 2026**
+Last updated: October 12, 2026.
 
-Taskbar Widget for Spotify does **not collect, store, or transmit any personal
-data**. There are no analytics, no telemetry, no accounts and no tracking of
-any kind.
+This independent fork has no analytics, telemetry, user accounts, or Pro purchase flow.
 
-- All settings are stored locally on your device
-  (`%APPDATA%\SpotifyTaskbarWidget\`).
-- Track information (title, artist, album art) is read locally from the
-  Windows media session and from the Spotify desktop app running on your own
-  device. Nothing leaves your machine.
-- The GitHub version of the app contacts GitHub's public API exclusively to
-  check for application updates (no identifying information is sent). The
-  Microsoft Store version does not perform update checks at all — updates are
-  handled by the Store.
-- The optional "Support the project" menu item opens your web browser at
-  ko-fi.com; any interaction there is governed by Ko-fi's own privacy policy.
+- Settings and diagnostic logs are stored locally in `%APPDATA%\SonosTaskbarWidget\`.
+- The current code reads track information from the local Windows media session and the Spotify desktop app's accessibility interface.
+- Unpackaged builds contact GitHub's API to check this fork's releases and download an executable only when the user accepts an update. GitHub receives normal network request information, such as the IP address and app user agent. Packaged builds currently skip this update check.
+- The **Support original developer (MechanicWB)** menu item opens the original developer's Ko-fi page in your browser. Interactions there follow Ko-fi's privacy policy.
 
-This is an independent open-source project, not affiliated with Spotify AB.
-Source code: https://github.com/mechanicwb2-hub/spotify-taskbar-widget
+Sonos integration is not yet included in this repository. This policy must be updated when LAN speaker communication or other Sonos integration is added.
 
-Contact: open an issue at
-https://github.com/mechanicwb2-hub/spotify-taskbar-widget/issues
+This fork is independent of MechanicWB, Sonos, and Spotify.
+Source and contact: https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb

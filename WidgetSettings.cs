@@ -54,7 +54,7 @@ public class WidgetSettings
     private static readonly object SaveLock = new();
 
     private static string Dir =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SpotifyTaskbarWidget");
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SonosTaskbarWidget");
 
     private static string FilePath => Path.Combine(Dir, "settings.json");
 

@@ -1,17 +1,17 @@
-# Constroi o pacote MSIX para a Microsoft Store.
+# Build an unsigned MSIX for the independent Sonos fork.
 #
-# Pre-requisito (uma vez): editar AppxManifest.xml e substituir a identidade
-# pelos valores do Partner Center (Product identity, depois de reservar o nome).
+# For sideloading, sign with your own certificate matching the manifest Publisher.
+# For Store submission, first reserve your own product and use its identity.
 #
 # Uso:  powershell -ExecutionPolicy Bypass -File Packaging\build-msix.ps1
-# Saida: Packaging\out\SpotifyTaskbarWidget.msix (NAO assinado - a Store assina)
+# Output: Packaging\out\SonosTaskbarWidget.msix (unsigned).
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 $staging = Join-Path $PSScriptRoot "staging"
 $out = Join-Path $PSScriptRoot "out"
 
-# 1. Publish self-contained (a Store nao instala o .NET runtime por nos)
+# 1. Publish self-contained; LICENSE and NOTICE.md are copied by the project.
 Write-Host "== dotnet publish (self-contained) =="
 $dotnet = "C:\Program Files\dotnet\dotnet.exe"
 if (-not (Test-Path $dotnet)) { $dotnet = "dotnet" }
@@ -24,8 +24,8 @@ if ($LASTEXITCODE -ne 0) { throw "publish falhou" }
 Copy-Item (Join-Path $PSScriptRoot "AppxManifest.xml") $staging -Force
 Copy-Item (Join-Path $PSScriptRoot "Assets") (Join-Path $staging "Assets") -Recurse -Force
 $manifest = Get-Content (Join-Path $staging "AppxManifest.xml") -Raw
-if ($manifest -match "00000000-0000-0000-0000-000000000000") {
-    Write-Warning "Identity/Publisher ainda tem o GUID de exemplo - substituir pelos valores do Partner Center antes de submeter."
+if ($manifest -match 'Publisher="CN=PandaWizard010"') {
+    Write-Warning "Local fork identity: sign with your own matching certificate. Store submission requires your own reserved product identity."
 }
 
 # 3. makeappx (SDK BuildTools via NuGet, sem instalar o Windows SDK completo)
@@ -43,9 +43,9 @@ if (-not $makeappx) {
 
 # 4. Empacotar
 New-Item -ItemType Directory -Force $out | Out-Null
-$msix = Join-Path $out "SpotifyTaskbarWidget.msix"
+$msix = Join-Path $out "SonosTaskbarWidget.msix"
 if (Test-Path $msix) { Remove-Item $msix -Force }
 & $makeappx.FullName pack /d $staging /p $msix /o
 if ($LASTEXITCODE -ne 0) { throw "makeappx falhou" }
 Write-Host "OK: $msix ($([math]::Round((Get-Item $msix).Length/1MB,1)) MB)"
-Write-Host "Submeter no Partner Center: o pacote segue sem assinatura (a Store assina)."
+Write-Host "Unsigned fork package created. See docs/store-listing.md for signing and distribution."

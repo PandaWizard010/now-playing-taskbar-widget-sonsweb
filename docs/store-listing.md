@@ -1,87 +1,31 @@
-# Submissão à Microsoft Store — guião completo
+# Packaging and distribution of the independent fork
 
-Produto: **Taskbar Widget for Spotify** · Store ID: 9P12TLJZG2CJ
+Product: **Now Playing - Sonos Fork**
+Maintainer: **PandaWizard010**
 
-## 1. Pacote
-Upload do ficheiro: `Packaging\out\SpotifyTaskbarWidget.msix`
-(já com a identidade oficial; segue sem assinatura — a Store assina)
+The original Microsoft Store product and publisher identity belong to MechanicWB. This fork has no Store listing, Pro purchase flow, or association with that listing.
 
-## 2. Pricing and availability
-- **Preço:** Free
-- **Mercados:** todos (default)
-- **Descontos/trial:** nenhum
+## Build an installer
 
-## 3. Properties
-- **Categoria:** Music
-- **Privacy policy URL:**
-  `https://github.com/mechanicwb2-hub/spotify-taskbar-widget/blob/main/PRIVACY.md`
-- **Website:** `https://github.com/mechanicwb2-hub/spotify-taskbar-widget`
-- **Support contact:** `https://github.com/mechanicwb2-hub/spotify-taskbar-widget/issues`
-- "Does this product access, collect or transmit personal information?" → **No**
+On Windows, publish using the command in README.md, then compile `setup.iss` with Inno Setup. The installer produces `SonosTaskbarWidget-Setup.exe` and includes `LICENSE` and `NOTICE.md`.
 
-## 4. Age ratings (questionário IARC)
-Responder **No/None** a tudo (sem violência, sem compras, sem interação entre
-utilizadores, sem partilha de localização). Resultado esperado: **3+ / E**.
+The installer uses a separate AppId, installation folder, and startup registry entry so it does not replace the original application.
 
-## 5. Store listing — English (default)
+## Build a local MSIX
 
-**Description:**
-```
-See and control your Spotify music without leaving whatever you're doing — a sleek now-playing widget embedded directly into the Windows 11 taskbar.
+Run `Packaging\build-msix.ps1` on Windows. The result is an unsigned `Packaging\out\SonosTaskbarWidget.msix`.
 
-FEATURES
-• Album art, title and artist of the current track, always visible in the taskbar
-• Play/pause, previous/next and a seekable progress bar
-• Add to favorites with the real liked state shown (green check)
-• All three Spotify shuffle modes, including Smart Shuffle
-• Repeat modes (off / playlist / track) and volume synced with Spotify
-• Docks automatically next to the weather button on any resolution or DPI; adapts to left-aligned taskbars, auto-hide and multi-monitor setups
-• Light & dark taskbar themes, adjustable size, configurable buttons
-• English and Portuguese
+The manifest uses `PandaWizard010.SonosTaskbarWidget` and local publisher `CN=PandaWizard010`. Sign with your own certificate whose subject matches that publisher; install the certificate as appropriate for your test machine.
 
-NO SETUP NEEDED
-No Spotify login, no API keys, no account. Install it, play music in the Spotify desktop app, and it just works.
+For a future Microsoft Store submission, reserve a new product under your own account and replace the manifest identity and publisher with your own Partner Center values. This local manifest is not an existing Store reservation. Do not use the original application's identity or Store ID.
 
-Requires the Spotify desktop app. This is an independent open-source project, not affiliated with, sponsored or endorsed by Spotify AB. "Spotify" is a trademark of Spotify AB.
-```
+## Release assets
 
-**Short description (se pedido):**
-```
-Now-playing widget for Spotify embedded in the Windows 11 taskbar — full controls, favorites, Smart Shuffle, volume and progress bar. Unofficial.
-```
+Publish this fork's own builds at:
+https://github.com/PandaWizard010/now-playing-taskbar-widget-sonsweb/releases
 
-**Search terms:** spotify, taskbar, widget, now playing, music controls
+Use a numeric tag such as `v1.3.2` and attach `SonosTaskbarWidget.exe` for the in-app updater. Include `LICENSE` and `NOTICE.md` in any downloadable build bundle.
 
-**Screenshots:** `docs\store\store-1.png` e `docs\store\store-2.png`
-(pode também juntar-se o `docs\demo.gif` convertido? A Store só aceita
-PNG/JPG — usar os dois PNG.)
+## Attribution and feature claims
 
-## 6. Store listing — Português
-Adicionar idioma "Portuguese (Portugal)" e usar:
-
-**Descrição:**
-```
-Vê e controla a tua música do Spotify sem saíres do que estás a fazer — um widget elegante embutido diretamente na barra de tarefas do Windows 11.
-
-FUNCIONALIDADES
-• Capa, título e artista da música atual, sempre visíveis na barra
-• Play/pausa, anterior/seguinte e barra de progresso com salto
-• Adicionar aos favoritos com o estado real (visto verde)
-• Os três modos aleatórios do Spotify, incluindo o Aleatório Inteligente
-• Modos de repetição e volume sincronizado com o Spotify
-• Encaixa automaticamente ao lado do botão do tempo em qualquer resolução; adapta-se a barras alinhadas à esquerda, ocultação automática e vários monitores
-• Temas claro e escuro, tamanho ajustável, botões configuráveis
-• Português e inglês
-
-SEM CONFIGURAÇÃO
-Sem login do Spotify, sem chaves de API, sem conta. Instala, põe música na app Spotify, e simplesmente funciona.
-
-Requer a app Spotify para computador. Projeto independente de código aberto, não afiliado, patrocinado ou aprovado pelo Spotify AB. "Spotify" é marca registada do Spotify AB.
-```
-
-## 7. Submeter
-Rever tudo → **Submit for certification**. Demora 1-3 dias úteis.
-Se a certificação falhar por causa do nome/marca "Spotify": responder ao
-relatório apontando o disclaimer de não-afiliação na descrição e o padrão
-"for X" comum na Store; em último caso, mudar o display name da listagem
-(a identidade do pacote não precisa de mudar).
+Credit MechanicWB and link the original project. Preserve LICENSE and NOTICE.md in source/build distributions. The source currently targets Spotify; Sonos support is pending integration. Do not advertise upstream Pro purchases as features of this fork.
